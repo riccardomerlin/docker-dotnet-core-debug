@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "buildForDebug",
+          "type": "shell",
+          "osx": {
+              "command": "sh",
+              "args": [
+                  "scripts/dockerTask.sh",
+                  "buildForDebug"
+              ],
+          },
+          "problemMatcher": [
+              "$msCompile"
+          ],
+          "group": {
+              "kind": "build",
+              "isDefault": true
+          }
+      },
+      {
+          "label": "cleanup",
+          "type": "shell",
+          "osx": {
+              "command": "sh",
+              "args": [
+                  "scripts/dockerTask.sh",
+                  "cleanup"
+              ]
+          }
+      }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": ".NET Core Docker Launch (console)",
+          "type": "coreclr",
+          "request": "launch",
+          "preLaunchTask": "buildForDebug",
+          "program": "/app/out/MvcApp.dll",
+          "cwd": "/app/out",
+          "sourceFileMap": {
+              "/app": "${workspaceRoot}/src"
+          },
+          "pipeTransport": {
+              "pipeProgram": "docker",
+              "pipeCwd": "${workspaceRoot}",
+              "pipeArgs": [
+                  "exec -i mvc-app-debug_1"
+              ],
+              "quoteArgs": false,
+              "debuggerPath": "/vsdbg/vsdbg"
+          }
+      }
+  ]
+}

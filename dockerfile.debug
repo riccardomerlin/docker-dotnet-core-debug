@@ -1,0 +1,30 @@
+FROM microsoft/aspnetcore-build as build
+
+WORKDIR /vsdbg
+
+# Installing vsdbg debbuger into our container 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+
+WORKDIR /app
+
+COPY ./src/MvcApp.csproj .
+RUN dotnet restore
+
+COPY ./src .
+RUN dotnet publish --output ./out
+
+# FROM microsoft/aspnetcore
+
+# WORKDIR /app
+
+# COPY --from=build /publish .
+ENV ASPNETCORE_URLS "http://0.0.0.0:80"
+
+# Kick off a container just to wait debugger to attach and run the app
+ENTRYPOINT ["/bin/bash", "-c", "sleep infinity"]
+
+# ENTRYPOINT [ "dotnet", "MvcApp.dll" ]

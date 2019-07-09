@@ -1,11 +1,11 @@
 imageName="mvc-app-debug"
-containerName="${imageName}_1"
+containerName="${imageName}_container"
 workdir="."
 
 # Kills all containers based on the image
 killContainers () {
   echo "Killing all containers based on the ${imageName} image"
-  docker rm --force $(docker ps -q -a --filter "ancestor=${imageName}")
+  docker rm --force $(docker ps -q -a --filter "name=${imageName}")
 }
 
 # Removes the Docker image
